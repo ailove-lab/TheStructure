@@ -1,0 +1,223 @@
+svg(width="100%", height="100%")
+	defs
+
+		g#td1
+			polyline(points="0, 10 8.66,-5 -8.66,-5 0, 10", style="fill: #444; stroke: #666; stroke-width:0.5;")
+		g#tu1
+			polyline(points="0,-10 8.66, 5 -8.66, 5 0,-10", style="fill: #444; stroke: #666; stroke-width:0.5;")
+		g#td0
+			polyline(points="0, 10 8.66,-5 -8.66,-5 0, 10", style="fill: #AAA; stroke: #666; stroke-width:0.5;")
+		g#tu0
+			polyline(points="0,-10 8.66, 5 -8.66, 5 0,-10", style="fill: #AAA; stroke: #666; stroke-width:0.5;")
+
+		g#0u
+			use(xlink:href="#td0", x="0",  y="0")
+			use(xlink:href="#tu0", x="0",  y="-10")
+			use(xlink:href="#tu0", x="-8.66", y="5")
+			use(xlink:href="#tu0", x="8.66",  y="5")
+		
+		g#0d
+			use(xlink:href="#tu0", x="0",  y="0")
+			use(xlink:href="#td0", x="0",  y="10")
+			use(xlink:href="#td0", x="8.66",  y="-5")
+			use(xlink:href="#td0", x="-8.66", y="-5")
+
+		g#1u
+			use(xlink:href="#td1", x="0",  y="0")
+			use(xlink:href="#tu0", x="0",  y="-10")
+			use(xlink:href="#tu0", x="-8.66", y="5")
+			use(xlink:href="#tu0", x="8.66",  y="5")
+		
+		g#1d
+			use(xlink:href="#tu1", x="0",  y="0")
+			use(xlink:href="#td0", x="0",  y="10")
+			use(xlink:href="#td0", x="8.66",  y="-5")
+			use(xlink:href="#td0", x="-8.66", y="-5")
+
+		g#2u
+			use(xlink:href="#td0", x="0",  y="0")
+			use(xlink:href="#tu1", x="0",  y="-10")
+			use(xlink:href="#tu0", x="-8.66", y="5")
+			use(xlink:href="#tu0", x="8.66",  y="5")
+		
+		g#2d
+			use(xlink:href="#tu0", x="0",  y="0")
+			use(xlink:href="#td1", x="0",  y="10")
+			use(xlink:href="#td0", x="8.66",  y="-5")
+			use(xlink:href="#td0", x="-8.66", y="-5")
+		
+		g#3u
+			use(xlink:href="#td1", x="0",  y="0")
+			use(xlink:href="#tu1", x="0",  y="-10")
+			use(xlink:href="#tu0", x="-8.66", y="5")
+			use(xlink:href="#tu0", x="8.66",  y="5")
+		
+		g#3d
+			use(xlink:href="#tu1", x="0",  y="0")
+			use(xlink:href="#td1", x="0",  y="10")
+			use(xlink:href="#td0", x="8.66",  y="-5")
+			use(xlink:href="#td0", x="-8.66", y="-5")
+
+		g#4u
+			use(xlink:href="#td0", x="0",  y="0")
+			use(xlink:href="#tu0", x="0",  y="-10")
+			use(xlink:href="#tu1", x="-8.66", y="5")
+			use(xlink:href="#tu0", x="8.66",  y="5")
+		
+		g#4d
+			use(xlink:href="#tu0", x="0",  y="0")
+			use(xlink:href="#td0", x="0",  y="10")
+			use(xlink:href="#td1", x="8.66",  y="-5")
+			use(xlink:href="#td0", x="-8.66", y="-5")
+
+		g#5u
+			use(xlink:href="#td1", x="0",  y="0")
+			use(xlink:href="#tu0", x="0",  y="-10")
+			use(xlink:href="#tu1", x="-8.66", y="5")
+			use(xlink:href="#tu0", x="8.66",  y="5")
+		
+		g#5d
+			use(xlink:href="#tu1", x="0",  y="0")
+			use(xlink:href="#td0", x="0",  y="10")
+			use(xlink:href="#td1", x="8.66",  y="-5")
+			use(xlink:href="#td0", x="-8.66", y="-5")
+
+		g#6u
+			use(xlink:href="#td0", x="0",  y="0")
+			use(xlink:href="#tu1", x="0",  y="-10")
+			use(xlink:href="#tu1", x="-8.66", y="5")
+			use(xlink:href="#tu0", x="8.66",  y="5")
+		
+		g#6d
+			use(xlink:href="#tu0", x="0",  y="0")
+			use(xlink:href="#td1", x="0",  y="10")
+			use(xlink:href="#td1", x="8.66",  y="-5")
+			use(xlink:href="#td0", x="-8.66", y="-5")
+
+		g#7u
+			use(xlink:href="#td1", x="0",  y="0")
+			use(xlink:href="#tu1", x="0",  y="-10")
+			use(xlink:href="#tu1", x="-8.66", y="5")
+			use(xlink:href="#tu0", x="8.66",  y="5")
+		
+		g#7d
+			use(xlink:href="#tu1", x="0",  y="0")
+			use(xlink:href="#td1", x="0",  y="10")
+			use(xlink:href="#td1", x="8.66",  y="-5")
+			use(xlink:href="#td0", x="-8.66", y="-5")
+
+		g#8u
+			use(xlink:href="#td0", x="0",  y="0")
+			use(xlink:href="#tu0", x="0",  y="-10")
+			use(xlink:href="#tu0", x="-8.66", y="5")
+			use(xlink:href="#tu1", x="8.66",  y="5")
+		
+		g#8d
+			use(xlink:href="#tu0", x="0",  y="0")
+			use(xlink:href="#td0", x="0",  y="10")
+			use(xlink:href="#td0", x="8.66",  y="-5")
+			use(xlink:href="#td1", x="-8.66", y="-5")
+
+		g#9u
+			use(xlink:href="#td1", x="0",  y="0")
+			use(xlink:href="#tu0", x="0",  y="-10")
+			use(xlink:href="#tu0", x="-8.66", y="5")
+			use(xlink:href="#tu1", x="8.66",  y="5")
+		
+		g#9d
+			use(xlink:href="#tu1", x="0",  y="0")
+			use(xlink:href="#td0", x="0",  y="10")
+			use(xlink:href="#td0", x="8.66",  y="-5")
+			use(xlink:href="#td1", x="-8.66", y="-5")
+
+		g#au
+			use(xlink:href="#td0", x="0",  y="0")
+			use(xlink:href="#tu1", x="0",  y="-10")
+			use(xlink:href="#tu0", x="-8.66", y="5")
+			use(xlink:href="#tu1", x="8.66",  y="5")
+		
+		g#ad
+			use(xlink:href="#tu0", x="0",  y="0")
+			use(xlink:href="#td1", x="0",  y="10")
+			use(xlink:href="#td0", x="8.66",  y="-5")
+			use(xlink:href="#td1", x="-8.66", y="-5")
+		
+		g#bu
+			use(xlink:href="#td1", x="0",  y="0")
+			use(xlink:href="#tu1", x="0",  y="-10")
+			use(xlink:href="#tu0", x="-8.66", y="5")
+			use(xlink:href="#tu1", x="8.66",  y="5")
+		
+		g#bd
+			use(xlink:href="#tu1", x="0",  y="0")
+			use(xlink:href="#td1", x="0",  y="10")
+			use(xlink:href="#td0", x="8.66",  y="-5")
+			use(xlink:href="#td1", x="-8.66", y="-5")
+
+		g#cu
+			use(xlink:href="#td0", x="0",  y="0")
+			use(xlink:href="#tu0", x="0",  y="-10")
+			use(xlink:href="#tu1", x="-8.66", y="5")
+			use(xlink:href="#tu1", x="8.66",  y="5")
+		
+		g#cd
+			use(xlink:href="#tu0", x="0",  y="0")
+			use(xlink:href="#td0", x="0",  y="10")
+			use(xlink:href="#td1", x="8.66",  y="-5")
+			use(xlink:href="#td1", x="-8.66", y="-5")
+
+		g#du
+			use(xlink:href="#td1", x="0",  y="0")
+			use(xlink:href="#tu0", x="0",  y="-10")
+			use(xlink:href="#tu1", x="-8.66", y="5")
+			use(xlink:href="#tu1", x="8.66",  y="5")
+		
+		g#dd
+			use(xlink:href="#tu1", x="0",  y="0")
+			use(xlink:href="#td0", x="0",  y="10")
+			use(xlink:href="#td1", x="8.66",  y="-5")
+			use(xlink:href="#td1", x="-8.66", y="-5")
+
+		g#eu
+			use(xlink:href="#td0", x="0",  y="0")
+			use(xlink:href="#tu1", x="0",  y="-10")
+			use(xlink:href="#tu1", x="-8.66", y="5")
+			use(xlink:href="#tu1", x="8.66",  y="5")
+		
+		g#ed
+			use(xlink:href="#tu0", x="0",  y="0")
+			use(xlink:href="#td1", x="0",  y="10")
+			use(xlink:href="#td1", x="8.66",  y="-5")
+			use(xlink:href="#td1", x="-8.66", y="-5")
+
+		g#fu
+			use(xlink:href="#td1", x="0",  y="0")
+			use(xlink:href="#tu1", x="0",  y="-10")
+			use(xlink:href="#tu1", x="-8.66", y="5")
+			use(xlink:href="#tu1", x="8.66",  y="5")
+		
+		g#fd
+			use(xlink:href="#tu1", x="0",  y="0")
+			use(xlink:href="#td1", x="0",  y="10")
+			use(xlink:href="#td1", x="8.66",  y="-5")
+			use(xlink:href="#td1", x="-8.66", y="-5")
+
+
+	use(xlink:href="#0u", x="20"      ,  y="20")
+	use(xlink:href="#1u", x="54.64"   ,  y="20")
+	use(xlink:href="#2u", x="89.18"   ,  y="20")
+	use(xlink:href="#3u", x="123.72"  ,  y="20")
+	use(xlink:href="#4u", x="158.26"  ,  y="20")
+	use(xlink:href="#5u", x="192.8"   ,  y="20")
+	use(xlink:href="#6u", x="227.34"  ,  y="20")
+	use(xlink:href="#7u", x="261.88"  ,  y="20")
+	use(xlink:href="#8u", x="20"      ,  y="50")
+	use(xlink:href="#9u", x="54.64"   ,  y="50")
+	use(xlink:href="#au", x="89.18"   ,  y="50")
+	use(xlink:href="#bu", x="123.72"  ,  y="50")
+	use(xlink:href="#cu", x="158.26"  ,  y="50")
+	use(xlink:href="#du", x="192.8"   ,  y="50")
+	use(xlink:href="#eu", x="227.34"  ,  y="50")
+	use(xlink:href="#fu", x="261.88"  ,  y="50")
+	
+	//- use(xlink:href="#7d", x="37.32",  y="10")

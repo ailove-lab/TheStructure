@@ -1,0 +1,385 @@
+<!DOCTYPE HTML>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>Wide-band WebSDR in JO32KF</title>
+
+<script src="tmp/bandinfo.js" type="text/javascript"></script>
+<script src="websdr-base-html5.js" type="text/javascript"></script>
+
+
+<style type="text/css">
+body { color: black; background-color: #C0C0C0; }
+.ctl { background: white; float: left; width: auto; margin:5px; border:2px; padding:5px}
+.clear { clear: both}
+.others { font-size: 60%; font-family: sans-serif}
+.memories { font-size: 80%; font-family: sans-serif}
+.scale{position:relative;}
+.scaleabs{position:absolute;}
+.hideblind { display:inline; }
+.showblind { display:none; }
+.statinfo0 { float:left; white-space:nowrap; position:relative; border-width:1px;border-style:solid;border-color:#ffc080; background-color:#cc8040;color:black;font-size:12px; }
+.statinfo1 { float:left; position:relative; border-left-width:0px;border-right-width:2px;border-top-width:0px;border-bottom-width:2px;border-style:solid;border-color:black; }
+.statinfo1:hover { z-index:98; }
+.statinfo2 { overflow:hidden; border-width:0px; border-left-width:2px; border-style:solid; border-color:black;position:absolute; }
+.statinfo2:hover { overflow:visible; }
+.statinfol { background-color:#ffc080; }
+.statinfo0l { float:left; white-space:nowrap; position:relative; border-width:1px;border-style:solid;border-color:#80ffc0; background-color:#40cc80;color:black;font-size:12px; }
+.statinfo1l { float:left; position:relative; border-left-width:0px;border-right-width:2px;border-top-width:0px;border-bottom-width:2px;border-style:solid;border-color:black; }
+.statinfo1l:hover { z-index:98; }
+.statinfo2l { overflow:hidden; border-width:0px; border-left-width:2px; border-style:solid; border-color:black;position:absolute; }
+.statinfo2l:hover { overflow:visible; }
+.statinfoll { background-color:#80ffc0; }
+</style>
+
+
+</head>
+
+<body onload=bodyonload()>
+<script language="JavaScript">if (top!=self) top.location.replace("http://websdr.ewi.utwente.nl:8901/");</script>
+
+
+<form name="html5choice" action="#">
+<div class="ctl">
+<div id="html5choice">
+</div>
+</div>
+
+<script language="JavaScript">
+var ct;
+function audiotest() 
+{
+if (document.ct) ct=document.ct;
+else {
+   var ctt=window.webkitAudioContext || window.AudioContext;
+   ct= new ctt();
+}
+//if (!document.ct) document.ct= new webkitAudioContext();
+//ct=document.ct;
+ct.sampleRate=48000;
+ct.currentTime=0;
+var gn = ct.createGainNode();
+var osc=ct.createOscillator();
+osc.connect(gn);
+gn.connect(ct.destination);
+var v=0.2;
+var t=0.1;
+var t0=ct.currentTime;
+gn.gain.value=v;
+gn.gain.setValueAtTime(v,t0+0*t);
+gn.gain.setValueAtTime(0,t0+1*t);
+gn.gain.setValueAtTime(v,t0+2*t);
+gn.gain.setValueAtTime(0,t0+5*t);
+gn.gain.setValueAtTime(v,t0+6*t);
+gn.gain.setValueAtTime(0,t0+7*t);
+osc.frequency.setValueAtTime(800,0);
+//osc.frequency.linearRampToValueAtTime(1600,1);
+osc.detune=0;
+//osc.start(t0);
+osc.noteOn(t0);
+//osc.stop(1);
+}
+</script>
+
+
+<input type="button" value="Click for test of the HTML5 audio" title="test" onclick="audiotest()">
+This button should produce the letter R in morse code (.-.).
+<br style="clear:both">
+<hr>
+</form>
+</b></font>
+</div>
+
+
+
+<style type="text/css">
+</style>
+
+<form name="usernameform" action="#">
+<script type="text/javascript">
+document_username();
+</script>
+<input type="text" size=1 name="dummytopreventsubmissiononenter" style="display:none" onclick="">
+</form>
+
+
+
+<form name="html5choice" action="#">
+<div class="ctl">
+<div id=html5choice>
+</div>
+</div>
+<br style="clear:both">
+<hr>
+</form>
+
+
+<div id="javawarning"></div>
+<hr>
+
+<form name="viewform" action="#">
+<div class="ctl">
+  <b>View:</b>
+  <div id=viewformbuttons></div>
+</div>
+</form>
+
+<div style="position:relative" class=clear>
+<div id="test">
+</div>
+<div id="waterfalls">
+</div>
+<div class="hideblind">
+ <img src="edgelower.png" title="drag to change filter" id="edgelower" onmousedown="mousedownlower(event)" class="scaleabs" alt="">
+ <img src="edgeupper.png" title="drag to change filter" id="edgeupper" onmousedown="mousedownupper(event)" class="scaleabs" alt="">
+ <img src="carrier.png" title="drag to tune" id="carrier" onmousedown="mousedownpassband(event)" class="scaleabs" style="z-index:2" alt="">
+ <div id="yellowbar" title="drag to tune" class="scaleabs" style="position:absolute;width:100px;height:18px;background-color:transparent" onmousedown="mousedownpassband(event)">
+  <div class="scaleabs" style="position:relative;left:0px;top:2px;height:1px;background-color:yellow;">
+   <div class="scaleabs" style="position:absolute;width:0px;height:0px;"></div>
+  </div>
+ </div>
+</div>
+</div>
+
+<br>
+
+<form name="freqform" action="#">
+
+<div class="ctl">
+  <b>Frequency:</b>
+  <span class="showblind">
+  <input type="button" title="- 2.5 kHz" value="---" onclick="setfreq(freq-2.5)">
+  <input type="button" title="- 500 Hz" value="--" onclick="setfreq(freq-0.5)">
+  <input type="button" title="- 50 Hz" value="-" onclick="setfreq(freq-0.05)">
+  </span>
+  <input type="text" size=10 onkeyup="setfreqif(this.value);" name="frequency" onclick=""> kHz
+  <span class="hideblind">
+  <br>
+  <input type="button" title="- 2.5 kHz" value="---" onclick="setfreq(freq-2.5)">
+  <input type="button" title="- 500 Hz" value="--" onclick="setfreq(freq-0.5)">
+  <input type="button" title="- 50 Hz" value="-" onclick="setfreq(freq-0.05)">
+  </span>
+  <input type="button" title="+ 50 Hz" value="+" onclick="setfreq(freq+0.05)">
+  <input type="button" title="+ 500 Hz" value="++" onclick="setfreq(freq+0.5)">
+  <input type="button" title="+ 2.5 kHz" value="+++" onclick="setfreq(freq+2.5)">
+  <script type="text/javascript"> document_bandbuttons(); </script>
+  <div class="hideblind">
+  <br>
+  <span style="font-size:65%">Or tune by clicking/dragging/scrollwheel on the frequency scale.</span>
+  <br>
+  <hr>
+  <b>Memories:</b>
+  <div id="memories" class="memories"></div>
+  </div>
+  <input type="text" size=1 name="dummytopreventsubmissiononenter" style="display:none" onclick="">
+</div>
+</form>
+
+<div class="hideblind">
+<div class="ctl">
+  <b>Waterfall view:</b>
+  <br>
+  <table>
+    <tr>
+    <td>
+    <span title="zoom out one step"><input type="button" value="zoom out" onclick="wfset(1);"></span>
+    <span title="zoom in one step"><input type="button" value="zoom in" onclick="wfset(0);"></span>
+    </td>
+    </tr>
+    <tr>
+    <td>
+    <span title="view entire frequency range of this receiver"><input type="button" value="max out" onclick="wfset(4);"></span>
+    <span title="view the entire current amateur or broadcast band"><input type="button" value="band" onclick="wfset(3);"></span>
+    <span title="zoom in as deep as possible"><input type="button" value="max in" onclick="wfset(2);"></span>
+    </td>
+    </tr>
+    <tr>
+    <td>
+<script type="text/javascript"> if (dxinfoavailable) document.write('<input type="checkbox" name="hidedx" value="" onclick="sethidedx(this.checked)">Hide labels'); </script>
+    </td>
+    </tr>
+  </table>
+  <span style="font-size:65%">Or zoom with scroll wheel on waterfall.<br>Move by dragging the waterfall with the mouse.</span>
+</div>
+</div>
+
+
+<div class="ctl">
+  <b>Bandwidth: </b>
+  <br>
+  <b><span id="numericalbandwidth6">?</span></b> kHz @ -6dB;
+  <b><span id="numericalbandwidth60">?</span></b> kHz @ -60dB.
+  <br>
+  <table>
+    <tr>
+    <td><input type="button" value="wider"   onclick="lo-=0.03125; hi+=0.03125; updbw();"></td>
+    <td><input type="button" value="CW-wide" onclick="setmf ('cw', -0.95, -0.55);"></td>
+    <td><input type="button" value="LSB"     onclick="setmf('lsb', -2.7, -0.3);"></td>
+    <td><input type="button" value="USB"     onclick="setmf('usb',  0.3,  2.7);"></td>
+    <td><input type="button" value="AM"      onclick="setmf ('am',  -4  ,  4  );"></td>
+    <td><input type="button" value="FM"      onclick="setmf ('fm',  -8  ,  8  );"></td>
+    </tr><tr>
+    <td><input type="button" value="narrower" onclick="lo+=0.03125; hi-=0.03125; updbw();"></td>
+    <td><input type="button" value="CW-narrow" onclick="setmf('cw',-0.78, -0.72);"></td>
+    <td><input type="button" value="LSB-nrw"  onclick="setmf('lsb', -2.2, -0.5);"></td>
+    <td><input type="button" value="USB-nrw"  onclick="setmf('usb',  0.5,  2.2);"></td>
+    <td><input type="button" value="AM-nrw"   onclick="setmf ('am', -2.5,  2.5);"></td>
+    </tr>
+  </table>
+  <span class="hideblind">
+  <span style="font-size:65%">Or drag the passband edges on the frequency scale.</span>
+  </span>
+</div>
+
+
+<div class="hideblind">
+<div class="ctl">
+  <b>Waterfall settings:</b>
+  <br>
+  <table>
+    <tr>
+    <td style="width:30%; valign:top; white-space:nowrap">
+      Speed:
+      <br>
+      <input type="radio" name="group1" value="4" onclick="waterfallspeed(4);" checked>slow
+      <br>
+      <input type="radio" name="group1" value="2" onclick="waterfallspeed(2);">medium
+      <br>
+      <input type="radio" name="group1" value="1" onclick="waterfallspeed(1);">fast
+    </td><td style="width:30%; valign:top; white-space:nowrap">
+      Size:
+      <br>
+      <input type="radio" name="group2" value="50" onclick="waterfallheight(50);">small
+      <br>
+      <input type="radio" name="group2" value="100" onclick="waterfallheight(200);" checked>medium
+      <br>
+      <input type="radio" name="group2" value="200" onclick="waterfallheight(600);">large
+    </td><td style="width:40%; valign:top; white-space:nowrap">
+      View:
+      <br>
+      <input type="radio" name="group3" value="0" onclick="waterfallmode(0);">spectrum
+      <br>
+      <input type="radio" name="group3" value="1" onclick="waterfallmode(1);" checked>waterfall
+      <br>
+      <input type="radio" name="group3" value="2" onclick="waterfallmode(2);">weak sigs
+      <br>
+      <input type="radio" name="group3" value="3" onclick="waterfallmode(3);">strong sigs
+    </td>
+    </tr>
+  </table>
+</div>
+</div>
+
+<div class="ctl">
+  <div class="hideblind">
+    <div style="width:250px;background-color:black;">
+    <br>
+    <div id="smeterpeak" style="width:100px;height:4px;background-color:#ff8000;position:absolute;">
+      <div style="position:absolute;width:0px;height:0px;"></div>
+    </div>
+    <div id="smeterbar" style="width:100px;height:4px;background-color:#00ff00;position:absolute;">
+      <div style="position:absolute;width:0px;height:0px;"></div>
+    </div>
+    <br>
+    <img src="smeter1.png" alt="[scale]">
+    <br>
+    </div>
+  </div>
+  <span id="numericalsmeter">?</span> dBm;
+  peak
+  <span id="numericalsmeterpeak">?</span> dBm;
+  <br>
+  <form action="#">
+  <input id="mutecheckbox" type="checkbox" value="" onclick="setmute(this.checked)">mute
+  <input id="squelchcheckbox" type="checkbox" value="" onclick="setsquelch(this.checked)">squelch
+  <input id="autonotchcheckbox" type="checkbox" value="" onclick="setautonotch(this.checked)">autonotch
+  <br>
+  <span id="volumecontrol" style="white-space:nowrap; width:50%"></span>
+  <span id="record_span" style="display:none">
+    <hr>
+    <b>Recording: </b>
+    <button id="recbutton" onclick="record_click(); return false">start</button>
+    <span id="reccontrol"></span>
+  </span>
+  </form>
+</div>
+
+<div class="ctl">
+  <b>Logbook:</b>
+  <form name="logform" action="#">
+  Call of station that you hear: <input type="text" size=12 name="call" onclick="">
+  <br>
+  Comments, if any: <input type="text" size=30 name="comment" onclick="">
+  <input type="button" value="submit" onclick="return sendlog()">
+  </form>
+  <span style="font-size:80%">
+    Note: time, frequency, your name/call, and DXCC information are added automatically.
+    <br>
+    View the <a href="~~logbook?nr=20">last 20 lines of the logbook</a>,
+    or the <a href="logbook.txt">entire logbook</a> (ctrl-click for new tab/window).
+  </span>
+</div>
+
+<div class="ctl">
+  <b>Station information:</b>
+  <br>
+  Lookup in databases:
+  <input type="button" title="Lookup current listening frequency in the fmscan.org database (new window)" value="fmscan.org" onclick="window.open('http://fmscan.org/main.php?f='+Math.round(nominalfreq())+'&b=52.22&l=6.9','websdrstationinfo','')">
+  <input type="button" title="Lookup current listening frequency in the mwlist.org database (new window)" value="mwlist.org"
+     onclick="if (nominalfreq()<1700) window.open('http://www.mwlist.org/mwlist_quick_and_easy.php?area=1&kHz='+Math.round(nominalfreq()),'websdrstationinfo','')
+              else window.open('http://www.mwlist.org/now.php?kHz='+Math.round(nominalfreq()),'websdrstationinfo','')">
+  <input type="button" title="Lookup current listening frequency in the qrg.globaltuners.com database (new window)" value="qrg.globaltuners.com" onclick="window.open('http://qrg.globaltuners.com/?q='+Math.round(nominalfreq())/1000,'websdrstationinfo','')">
+  <input type="button" title="Lookup current listening frequency in the www.short-wave.info database (new window)" value="short-wave.info" onclick="window.open('http://www.short-wave.info/index.php?freq='+Math.round(nominalfreq())+'&timbus=NOW','websdrstationinfo','')">
+  <br>
+  <font size=-1>
+  </font>
+</div>
+
+
+<br style="clear:both">
+<hr>
+
+
+<form name="form1" action="#">
+This WebSDR is currently being used by <span id=numusers>?</span> user(s) simultaneously:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input id="compactviewcheckbox" type="checkbox" name="compactview" value="" onclick="setcompactview(this.checked)">compact view</input>
+<br>
+<div id=users></div>
+</form>
+<hr>
+
+<span id="chatboxspan">
+<p><b>Chatbox:</b><br>
+<span style="font-size:80%">
+This chatbox is intended to discuss the operation of the WebSDR.
+<font color=red size=+1><b>Please keep the discussion civil and polite; that also means no swearing ("four-letter words").</b></font>
+<br>
+The operators of this site disclaim any responsibility for text appearing in this chatbox.
+</span>
+<div style="background-color:#c0ffff"><pre id="chatbox"></pre></div>
+<br>
+<span id="please2"></span>
+<form name="chatform" onsubmit="return sendchat()" action="#">
+<input type="text" size=80 name="chat" onclick="">
+<input type="button" value="chatbox submit" onclick="return sendchat()">
+</form>
+<br>
+</span>
+
+<hr>
+<div style="font-size:80%">
+Statistics:
+<div id="stats"></div>
+</div>
+
+
+
+<hr>
+
+<div id="soundappletdiv"></div>
+
+
+
+
+
+</body>
+</html>
+
